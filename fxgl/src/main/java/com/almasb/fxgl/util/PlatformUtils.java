@@ -24,43 +24,57 @@
  * SOFTWARE.
  */
 
-package com.almasb.fxgl.util
-
-
-import java.util.*
+package com.almasb.fxgl.util;
 
 /**
- * Simple data structure to contain a list of credits.
+ * Provides information about platform specifics.
  *
- * @author Almas Baimagambetov (AlmasB) (almaslvl@gmail.com)
+ * @author stefanbanu
  */
-class Credits {
+public final class PlatformUtils {
 
-    /**
-     * Unmodifiable list of credits.
-     */
-    val list: List<String>
+    private PlatformUtils() {}
 
-    /**
-     * Constructs credits from given list of names.
-     */
-    constructor(list: List<String>) {
-        val newList = ArrayList(list)
-        with(newList) {
-            add("")
-            add("Powered by FXGL ${Version.getAsString()}")
-            add("Author: Almas Baimagambetov")
-            add("https://github.com/AlmasB/FXGL")
-            add("")
+    private static String OS = null;
+
+    private static String getOsName() {
+        if (OS == null) {
+            OS = System.getProperty("os.name");
         }
+        return OS.toLowerCase();
+    }
 
-        this.list = Collections.unmodifiableList(newList)
+    public static boolean isWindows() {
+        return getOsName().contains("win");
+    }
+
+    public static boolean isUnix(){
+        return getOsName().contains("nix");
+    }
+
+    public static boolean isMac(){
+        return getOsName().contains("mac");
+    }
+
+    public static boolean isLinux(){
+        return getOsName().contains("nux");
+    }
+
+    public static boolean isSolaris(){
+        return getOsName().contains("sunos");
     }
 
     /**
-     * Copy constructor.
+     * @return Operation System version
      */
-    constructor(copy: Credits) {
-        list = copy.list
+    public static String getOsVersionString() {
+        return System.getProperty("os.version");
+    }
+
+    /**
+     * @return Operation System architecture 32 or 64
+     */
+    public static String getOsArchString() {
+        return System.getProperty("os.version");
     }
 }
